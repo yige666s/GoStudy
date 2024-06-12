@@ -1,4 +1,1 @@
-21321
-asskafh
-hello world
-my name is jack
+file write test
