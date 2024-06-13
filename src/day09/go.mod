@@ -4,6 +4,8 @@ go 1.22.4
 
 require (
 	github.com/gin-gonic/gin v1.10.0
+	github.com/go-playground/assert/v2 v2.2.0
+	github.com/h2non/gock v1.2.0
 	github.com/stretchr/testify v1.9.0
 )
 
@@ -19,6 +21,7 @@ require (
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator/v10 v10.20.0 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
+	github.com/h2non/parth v0.0.0-20190131123155-b4df798d6542 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.7 // indirect
 	github.com/leodido/go-urn v1.4.0 // indirect

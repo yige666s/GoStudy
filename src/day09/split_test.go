@@ -85,3 +85,7 @@ func TestWithAssert(t *testing.T) {
 
 	assert.NotNil(get1)
 }
+
+func TestSplitWithConvey(t *testing.T) {
+
+}
