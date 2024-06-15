@@ -4,6 +4,7 @@ import (
 	"reflect"
 	"testing"
 
+	c "github.com/smartystreets/goconvey/convey"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -87,5 +88,23 @@ func TestWithAssert(t *testing.T) {
 }
 
 func TestSplitWithConvey(t *testing.T) {
+	c.Convey("BaseCase", t, func() {
+		var (
+			s      = "a:b:c"
+			sep    = ":"
+			expect = []string{"a", "b", "c"}
+		)
+		get := Split(s, sep)
+		c.So(get, c.ShouldResemble, expect) // 断言
+	})
 
+	c.Convey("BaseCase2", t, func() {
+		var (
+			s      = "aabcddebcf"
+			sep    = "bc"
+			expect = []string{"aa", "dde", "f"}
+		)
+		get := Split(s, sep)
+		c.So(get, c.ShouldResemble, expect)
+	})
 }
