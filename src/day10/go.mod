@@ -3,7 +3,6 @@ module day10
 go 1.22.2
 
 require (
-	github.com/jinzhu/gorm v1.9.16
 	gorm.io/driver/mysql v1.5.7
 	gorm.io/gorm v1.25.10
 )
