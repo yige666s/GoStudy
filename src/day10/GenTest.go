@@ -1,10 +1,8 @@
 package main
 
 import (
-	"context"
 	"day10/dal"
 	"day10/dal/query"
-	"fmt"
 )
 
 const MYSQLDSN = "root:root1234@tcp(127.0.0.1:13306)/GormTest?charset=utf8mb4&parseTime=True"
@@ -49,13 +47,24 @@ func GenTest() {
 	// fmt.Printf("Book : %v\n", book)
 
 	// 删除
-	ret, err := query.Book.WithContext(context.Background()).
-		Where(query.Book.ID.Eq(2)).Delete()
-	if err != nil {
-		fmt.Printf("delete book failed,err :%v\n", err)
-		return
-	}
-	fmt.Printf("RowAffected:%v\n", ret.RowsAffected)
+	// ret, err := query.Book.WithContext(context.Background()).
+	// 	Where(query.Book.ID.Eq(2)).Delete()
+	// if err != nil {
+	// 	fmt.Printf("delete book failed,err :%v\n", err)
+	// 	return
+	// }
+	// fmt.Printf("RowAffected:%v\n", ret.RowsAffected)
+
+	// // 使用自定义接口
+	// rets, err := query.Book.WithContext(context.Background()).GetBooksByAuthor("jack")
+	// if err != nil {
+	// 	fmt.Printf("GetBooksByAuther fail,err: %v\n", err)
+	// 	return
+	// }
+	// for i, b := range rets {
+	// 	fmt.Printf("%d:%v\n", i, b)
+	// }
+
 }
 
 // 自定义SQL查询
