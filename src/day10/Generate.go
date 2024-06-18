@@ -53,4 +53,49 @@ func Generate() {
 
 }
 
-// 方法模板
+type CommonMethod struct {
+	ID   int32
+	Name *string
+}
+
+func (m *CommonMethod) IsEmpty() bool {
+	if m == nil {
+		return true
+	}
+	return m.ID == 0
+}
+func (m *CommonMethod) GetName() string {
+	if m == nil || m.Name == nil {
+		return ""
+	}
+	return *m.Name
+}
+
+// 当生成 `People` 结构体时添加 IsEmpty 方法
+g.GenerateModel("people", gen.WithMethod(CommonMethod{}.IsEmpty))
+
+// 生成`User`结构体时添加 `CommonMethod` 的所有方法
+g.GenerateModel("user", gen.WithMethod(CommonMethod{}))
+
+// 可以自行指定字段类型和数据库列类型之间的数据类型映射。
+// 在某些业务场景下，这个功能非常有用，例如，我们希望将数据库中数字列在生成结构体时都定义为int64类型
+var dataMap = map[string]func(gorm.ColumnType) (dataType string){
+  // int mapping
+  "int": func(columnType gorm.ColumnType) (dataType string) {
+    if n, ok := columnType.Nullable(); ok && n {
+      return "*int32"
+    }
+    return "int32"
+  },
+
+  // bool mapping
+  "tinyint": func(columnType gorm.ColumnType) (dataType string) {
+    ct, _ := columnType.ColumnType()
+    if strings.HasPrefix(ct, "tinyint(1)") {
+      return "bool"
+    }
+    return "byte"
+  },
+}
+
+g.WithDataTypeMap(dataMap)

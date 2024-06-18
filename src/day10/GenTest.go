@@ -66,5 +66,3 @@ func GenTest() {
 	// }
 
 }
-
-// 自定义SQL查询
