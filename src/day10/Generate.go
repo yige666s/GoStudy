@@ -1,6 +1,8 @@
 package main
 
 import (
+	"day10/dal/model"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/gen"
 	"gorm.io/gorm"
@@ -39,6 +41,16 @@ func Generate() {
 	// 从连接的数据库为所有表生成Model结构体和CRUD代码,可以手动指定需要生成代码的数据表
 	g.ApplyBasic(g.GenerateAllTable()...)
 
+	g.GenerateModel("users")               // users表生成UseraModel
+	g.GenerateModelAs("users", "Employee") // users表生成EmployeeModel
+	g.GenerateModel("users", gen.FieldIgnore("address"), gen.FieldType("id", "int64"))
+
+	// 通过ApplyInterface为book表添加自定义方法
+	g.ApplyInterface(func(model.Querier) {}, g.GenerateModel("book"))
+
 	// 执行并生成代码
 	g.Execute()
+
 }
+
+// 方法模板
