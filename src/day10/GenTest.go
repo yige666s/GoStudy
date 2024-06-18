@@ -57,3 +57,5 @@ func GenTest() {
 	}
 	fmt.Printf("RowAffected:%v\n", ret.RowsAffected)
 }
+
+// 自定义SQL查询
