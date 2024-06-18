@@ -130,3 +130,5 @@ func ZsetTest() {
 		fmt.Println(v.Member, v.Score)
 	}
 }
+
+// TODO 扫描或遍历所有key
