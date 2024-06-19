@@ -1,5 +1,8 @@
 package main
 
 func main() {
-	GinDemo()
+	// GinDemo()
+	// JsonRendering()
+	// XmlRendering()
+	YamlRendering()
 }
