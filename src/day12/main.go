@@ -12,4 +12,8 @@ func main() {
 	// ParamBinding()
 	// fileupload.FileUpload()
 	// fileupload.MutiFileUpload()
+	// Redirect()
+	// Route()
+	// GlobalRouteMiddleware()
+	MutiFileUpload()
 }
