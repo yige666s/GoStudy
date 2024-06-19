@@ -4,5 +4,12 @@ func main() {
 	// GinDemo()
 	// JsonRendering()
 	// XmlRendering()
-	YamlRendering()
+	// YamlRendering()
+	// QueryString()
+	// PostRequest()
+	// PostWithJson()
+	// PathRequest()
+	// ParamBinding()
+	// fileupload.FileUpload()
+	// fileupload.MutiFileUpload()
 }
