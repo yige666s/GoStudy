@@ -11,6 +11,7 @@
 # Test binary, built with `go test -c`
 *.test
 
+
 /bin
 /pkg
 
@@ -22,3 +23,6 @@
 
 # Go workspace file
 go.work
+
+# all logs
+*.log
