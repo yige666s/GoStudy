@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/gin-gonic/gin"
 )
 
@@ -42,12 +40,13 @@ func Init() *gin.Engine {
 	return r
 }
 
-func main1() {
-	// 加载多个路由配置
-	Inlcude(shop.Routers, goods.Routers)
-	// 初始化路由
-	r := Init()
-	if err := r.run(); err != nil {
-		fmt.Println("startup service failed,err:%v\n", err)
-	}
-}
+// func main1() {
+// 	// // 加载多个路由配置
+// 	// r := gin.Default()
+// 	// // Inlcude(shop.Routers, goods.Routers)
+// 	// // 初始化路由
+// 	// r := Init()
+// 	// if err := r.run(); err != nil {
+// 	// 	fmt.Println("startup service failed,err:%v\n", err)
+// 	// }
+// }
