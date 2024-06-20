@@ -222,6 +222,3 @@ func watchDemo(ctx context.Context, key string, rdb *redis.Client) error {
 		return err
 	}, key)
 }
-
-// go-redis 官方文档中使用 GET 、SET和WATCH命令实现一个 INCR 命令的完整示例
-// TODO go-redis INCR
