@@ -1,0 +1,18 @@
+# 多阶段构建示例
+
+FROM golang:alpine AS builder
+ENV GO111MODULE=on\
+	GOPROXY=https://goproxu.cn,direct\
+	CGO_ENABLED=0\
+	GOOS=linux\
+	GOARCH=amd64
+WORKDIR /build
+COPY . .
+RUN go mod download
+
+FROM scratch
+COPY ./templates /templates
+COPY ./static /static
+COPY ./conf /conf
+COPY --from=builder /build/bubble /
+ENTRYPOINT [ "/bubble","conf/config.ini" ]
