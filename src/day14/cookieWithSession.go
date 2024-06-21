@@ -106,8 +106,19 @@ func SessionMiddlewareTest() {
 		ctx.JSON(http.StatusOK, gin.H{"count": counter})
 	})
 
-	// TODO 清除session
+	// 清除session
 	r.GET("/clear", func(ctx *gin.Context) {
+		session := GetSession(ctx)
+		if session == nil {
+			ctx.JSON(http.StatusInternalServerError, gin.H{"error": "faileld to get session"})
+			return
+		}
 
+		// clear the session
+		session.Values = make(map[interface{}]interface{})
+		session.Save(ctx.Request, ctx.Writer)
+		ctx.JSON(http.StatusOK, gin.H{"message": "sessoin cleared"})
 	})
+
+	r.Run(":8080")
 }
