@@ -1,0 +1,30 @@
+# YAML 配置
+version: '3.7'
+services:
+  mysql8019:
+    image: "mysql:5.7"
+    ports:
+      -"3307:3306"
+    volumes:
+      -./init.sql:/data/application/init.sql
+    command: "--default-authenication-plugin=mysql_native_password --init-file /data/application/init.sql"
+    environment:
+      - MYSQL_ROOT_PASSWORD: "root1234"
+      - MYSQL_DATABASE: "bubble"
+      - MYSQL_PASSWORD: "root1234"
+    # 使用健康检查查询依赖启动状态
+    healthcheck:
+      test: ["CMD", "mysqladmin","ping","-h","localhost"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+
+  bubble_app:
+    ports:
+      -"8888:8888"
+    build: .
+    depends_on:
+      mysql8019
+    # 使用提前编写的wait-for.sh脚本检测mysql8019:3306正常后再执行后续启动Web应用程序的命令：
+    command: sh -c "./wait-for.sh mysql8019:3306 -- ./bubble ./conf/config.ini"

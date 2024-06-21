@@ -8,11 +8,22 @@ ENV GO111MODULE=on\
 	GOARCH=amd64
 WORKDIR /build
 COPY . .
-RUN go mod download
+RUN go mod download	\
+	&& go build -o bubble .
 
-FROM scratch
+# 需要使用sh命令
+FROM debian:stretch-slim	
+COPY ./wait-for.sh /
 COPY ./templates /templates
 COPY ./static /static
 COPY ./conf /conf
 COPY --from=builder /build/bubble /
-ENTRYPOINT [ "/bubble","conf/config.ini" ]
+# 需要运行的命令（注释掉这一句，因为需要等MySQL启动之后再启动我们的Web程序）
+# ENTRYPOINT [ "/bubble","conf/config.ini" ]
+# 使用wait-for.sh脚本实现
+RUN set -eux;	\
+	apt update;\
+	apt install -y --no-install-recommands netcat;\
+	chmod 755 wait-for.sh
+
+
