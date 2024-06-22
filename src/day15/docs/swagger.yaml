@@ -1,0 +1,19 @@
+info:
+  contact: {}
+paths:
+  /ping:
+    get:
+      consumes:
+      - application/json
+      description: get a ping message
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: pong
+          schema:
+            type: string
+      summary: Show a ping message
+      tags:
+      - example
+swagger: "2.0"
