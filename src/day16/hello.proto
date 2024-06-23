@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package pb;
+
+// 服务
+service Greeter{
+	// Sayhello 方法
+	rpc SayHello (HelloRequest) returns (HelloResponse);
+}
+
+message HelloRequest {
+	string name = 1;
+}
+
+message HelloResponse{
+	string reply = 1;
+}

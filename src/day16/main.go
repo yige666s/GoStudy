@@ -32,7 +32,7 @@ func newHTTPHandler() http.Handler {
 	return handler
 }
 
-func main() {
+func JaegerTest() {
 	if err := run(); err != nil {
 		log.Fatalln(err)
 	}
