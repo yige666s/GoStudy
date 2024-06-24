@@ -1,0 +1,67 @@
+# [target] ... : [prerequisites] ...
+# <tab>[command]
+#     ...
+#     ...
+# targets：规则的目标
+# prerequisites：可选的要生成 targets 需要的文件或者是目标。
+# command：make 需要执行的命令（任意的 shell 命令）。可以有多条命令，每一条命令占一行。
+
+# Go parameters
+GOCMD=go
+GOBUILD=$(GOCMD) build
+GOCLEAN=$(GOCMD) clean
+GOTEST=$(GOCMD) test
+GOGET=$(GOCMD) get
+BINARY_NAME=myapp
+BINARY_UNIX=$(BINARY_NAME)_unix
+
+# All target
+all: test build
+
+# Build the project
+build:
+	$(GOBUILD) -o $(BINARY_NAME) -v
+
+# Run the project
+run:
+	$(GOBUILD) -o $(BINARY_NAME) -v ./...
+	./$(BINARY_NAME)
+
+# Test the project
+test:
+	$(GOTEST) -v ./...
+
+# Clean the project
+clean:
+	$(GOCLEAN)
+	rm -f $(BINARY_NAME)
+	rm -f $(BINARY_UNIX)
+
+# Install dependencies
+deps:
+	$(GOGET) -v ./...
+
+# Cross compilation
+build-linux:
+	GOOS=linux GOARCH=amd64 $(GOBUILD) -o $(BINARY_UNIX) -v
+
+.PHONY: all build clean run test deps build-linux
+
+# 变量定义：
+
+# GOCMD：Go命令，可以是go。
+# GOBUILD、GOCLEAN、GOTEST、GOGET：常用的Go命令。
+# BINARY_NAME：生成的二进制文件名。
+# BINARY_UNIX：为Linux系统生成的二进制文件名。
+# 目标：
+
+# all：默认目标，执行测试和构建。
+# build：编译项目生成二进制文件。
+# run：编译并运行项目。
+# test：运行所有测试。
+# clean：清理生成的文件。
+# deps：安装依赖。
+# build-linux：为Linux系统进行交叉编译。
+# 伪目标：
+
+# .PHONY：标记这些目标为伪目标，表示这些目标不对应实际的文件名。

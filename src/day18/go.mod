@@ -6,7 +6,7 @@ replace github.com/coreos/bbolt v1.3.4 => go.etcd.io/bbolt v1.3.4
 
 replace go.etcd.io/bbolt v1.3.4 => github.com/coreos/bbolt v1.3.4
 
-replace google.golang.org/grpc => google.golang.org/grpc v1.29.0
+replace google.golang.org/grpc => google.golang.org/grpc v1.29.1
 
 require (
 	github.com/fsnotify/fsnotify v1.7.0
@@ -34,7 +34,7 @@ require (
 	github.com/go-playground/validator/v10 v10.20.0 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
-	github.com/golang/protobuf v1.5.3 // indirect
+	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/google/btree v1.1.2 // indirect
 	github.com/google/uuid v1.4.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0 // indirect
