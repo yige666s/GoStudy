@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"time"
 
@@ -57,10 +58,36 @@ func SingleflightTest() {
 }
 
 // singleflight将并发调用合并成一个调用的特点决定了它非常适合用来防止缓存击穿。
+func getDataFromCache(key string) (string, error) {
+	time.Sleep(5 * time.Second)
+	if key == "cache" {
+		return "cache", nil
+	}
+	if key == "DB" {
+		return "NOT found", errors.New("NOTOUND")
+	}
+
+}
 func getDataSingleFlight(key string) (interface{}, error) {
 	g := new(singleflight.Group)
-	// 查缓存
-	v, err := g.Do(key, func() (interface{}, error) {
-
+	value, err, _ := g.Do(key, func() (interface{}, error) {
+		// 查缓存
+		data, err := getDataFromCache(key)
+		if err == nil { // 查到缓存，返回缓存
+			return data, nil
+		}
+		if err == NOTFOUND { // 缓存不命中，查DB
+			data, err := getDataFromDB(key)
+			if err == nil { // 查询数据库成功，设置缓存，返回数据
+				setCache(data)
+				return data, nil
+			}
+			return nil, err // 查询数据库失败，返回错误
+		}
+		return nil, err // 查缓存出现其他错误直接返回，防止错误传递至DB
 	})
+	if err != nil {
+		return nil, err
+	}
+	return value, err
 }
