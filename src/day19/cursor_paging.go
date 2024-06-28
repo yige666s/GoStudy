@@ -96,6 +96,7 @@ func cursorTest() {
 	token := inititalPage.Encode()
 
 	// 模拟分页获取数据
+	// BUG 无法跳出循环
 	for {
 		items, nextToken := GetPage(token)
 		fmt.Println("Fetched items", items)
