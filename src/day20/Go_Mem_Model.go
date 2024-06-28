@@ -2,6 +2,9 @@ package main
 
 import "unsafe"
 
+// 因为 CPU 访问内存时，并不是逐个字节访问，而是以字（word）为单位访问。比如 64位CPU的字长（word size）为8bytes，
+// 那么CPU访问内存的单位也是8字节，每次加载的内存数据也是固定的若干字长，如8words（64bytes）、16words(128bytes）等。
+
 type Foo struct {
 	A int8 // 1
 	B int8 // 1
