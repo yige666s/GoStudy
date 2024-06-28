@@ -23,6 +23,38 @@ func SliceOperate() {
 	a[i] = a[len(a)-1]            // 使用最后一个元素覆盖索引为i的位置的元素，但会破坏元素顺序
 	a = a[:len(a)-1]              // 截断最后一个元素
 
-	// 内存泄漏处理
+	//TODO 内存泄漏处理
+	var c []*int32
+	copy(c[i:], c[j:])
+	for k, n := len(c)-(j-i), len(c); k < n; k++ {
+		c[k] = nil
+	}
+	a = a[:len(a)-(j-i)]
 
-}
+	// copy(a[i:], a[i+1:])
+	// a[len(a)-1] = nil // 或类型T的零值
+	// a = a[:len(a)-1]
+
+	// a[i] = a[len(a)-1]
+	// a[len(a)-1] = nil
+	// a = a[:len(a)-1]
+
+	// 内部扩张
+	a = append(a[:i], append(make([]int, j), a[i:]...)...) //先在ai之前添加j个元素，再将整体添加到前i个元素之后
+	// 尾部扩张
+	a = append(a, make([]int, j)...) // 尾部添加j个元素
+	// 过滤 这里假设过滤的条件已封装为keep函数，使用for range遍历切片a的所有元素逐一调用keep函数进行过滤。
+	// n := 0
+	// for _, x := range a {
+	// 	if keep(x) {
+	// 		a[n] = x  // 保留该元素
+	// 		n++
+	// 	}
+	// }
+	// a = a[:n]  // 截取切片中需保留的元素
+	// }
+
+	// 插入，将元素x插入切片a的索引i处
+	// a = append(a[:i],append([]int{x}, a[i:]...)...)	// 底层创建新切片
+	
+
