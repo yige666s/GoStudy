@@ -26,7 +26,7 @@ func SliceOperate() {
 	a[i] = a[len(a)-1]            // 使用最后一个元素覆盖索引为i的位置的元素，但会破坏元素顺序
 	a = a[:len(a)-1]              // 截断最后一个元素
 
-	//TODO 内存泄漏处理
+	// 内存泄漏处理
 	var c []*int32
 	copy(c[i:], c[j:])
 	for k, n := len(c)-(j-i), len(c); k < n; k++ {
