@@ -6,5 +6,6 @@ func main() {
 	// writeByConn()
 	// goroutineTest()
 	// slicetest()
-	valuePass()
+	// valuePass()
+	EnumsTest()
 }
