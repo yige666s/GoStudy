@@ -7,5 +7,11 @@ func main() {
 	// goroutineTest()
 	// slicetest()
 	// valuePass()
-	EnumsTest()
+	// EnumsTest()
+	// goprroftest()
+	// pprofTest()
+	// timerTest()
+	// timerTicker()
+	// timerTest()
+	sleepTest()
 }
