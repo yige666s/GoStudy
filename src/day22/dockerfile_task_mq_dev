@@ -1,0 +1,23 @@
+FROM alpine:3.18
+
+# 添加时区处理
+RUN echo -e "https://mirrors.aliyun.com/alpine/v3.15/main\nhttps://mirrors.aliyun.com/alpine/v3.15/community" > /etc/apk/repositores && \
+		apk update && \
+		apk --no-cache add tzdata && \
+		cp /user/share/zoneinfo/Asia/Shnaghai /etcc/localtime &&\
+		echo "Asia/Shnaghai" > /etc/timezone
+ENV TZ=Asia/Shnaghai
+
+ARG SERVER_NAME=task
+ARG SERVER_TYPE=mq
+
+ENV RUN_BIN bin/${SERVER_NAME}-${SERVER_TYPE}
+ENV RUN_CONF /${SERVER_NAME}/conf/${SERVER_TYPE}.yaml
+
+RUN mkdir /$SERVER_NAME && mkdir /$SERVER_NAME/bin && mkdir /$SERVER_NAME/conf
+COPY ./bin/$SERVER_NAME-$SERVER_TYPE /SERVER_NAME/bin/
+COPY ./apps/$SERVER_NAME/SERVER_TYPE/etc/dev/${SERVER_NAME}-${SERVER_TYPE}.yaml /$SERVER_NAME/conf
+RUN chmod +x /$SERVER_NAME/bin/SERVER_NAME-$SERVER_TYPE
+
+WORKDIR /$SERVER_NAME
+ENTRYPOINT $RUN_BIN -f $RUN_CONF
